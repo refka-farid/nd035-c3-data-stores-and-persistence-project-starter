@@ -32,7 +32,6 @@ public class ScheduleController {
     @Autowired
     private CustomerService customerService;
 
-
     @PostMapping
     public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
         Schedule schedule = convertScheduleDtoToSchedule(scheduleDTO);
@@ -40,7 +39,7 @@ public class ScheduleController {
         return convertScheduleToScheduleDto(schedule1);
     }
 
-    @GetMapping
+    @GetMapping("schedule")
     public List<ScheduleDTO> getAllSchedules() {
         List<Schedule> allSchedules = schedulerService.getAllSchedules();
         List<ScheduleDTO> allSchedulesDto = new ArrayList<>();

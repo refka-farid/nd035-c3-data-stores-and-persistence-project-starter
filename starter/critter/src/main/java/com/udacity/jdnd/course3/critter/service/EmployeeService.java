@@ -34,6 +34,7 @@ public class EmployeeService {
         List<Employee> employeesAvailableOnSpecificDay = new ArrayList<>();
         List<Employee> availableEmployeesForService = new ArrayList<>();
 
+        /* Step 1 find employees with available days */
         if (!allEmployees.isEmpty()) {
             for (Employee employee : allEmployees) {
                 if (!employee.getDaysAvailable().isEmpty() || employee.getDaysAvailable() != null) {
@@ -42,6 +43,7 @@ public class EmployeeService {
             }
         }
 
+        /* Step 2 find available employees in a specific  */
         if (!employeesWithAvailableDays.isEmpty()) {
             for (Employee employee : employeesWithAvailableDays) {
                 for (DayOfWeek day : employee.getDaysAvailable()) {
@@ -52,6 +54,7 @@ public class EmployeeService {
             }
         }
 
+        /* Step 3 find available employees with specific skills */
         List<Boolean> hasSKills = new ArrayList<>();
         List<AvailableEmployee> availableEmployeeList = new ArrayList<>();
         if (!employeesAvailableOnSpecificDay.isEmpty()) {
@@ -64,13 +67,13 @@ public class EmployeeService {
                             }
                         }
                     }
-
                 }
                 availableEmployeeList.add(new AvailableEmployee(employee, hasSKills));
                 hasSKills = new ArrayList<>();
             }
         }
 
+        /* Step 4 find employee for service */
         for (AvailableEmployee availableEmployee : availableEmployeeList) {
             if (availableEmployee.getHasAvailableSkills().size() == employeeDTO.getSkills().size()) {
                 availableEmployeesForService.add(availableEmployee.getEmployee());
@@ -78,5 +81,13 @@ public class EmployeeService {
         }
 
         return availableEmployeesForService;
+    }
+
+    public void deleteAll() {
+        employeeRepository.deleteAll();
+    }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 }

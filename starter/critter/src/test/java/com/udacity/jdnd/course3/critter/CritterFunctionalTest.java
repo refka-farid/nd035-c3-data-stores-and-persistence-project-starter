@@ -5,10 +5,17 @@ import com.google.common.collect.Sets;
 import com.udacity.jdnd.course3.critter.pet.PetController;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.pet.PetType;
+import com.udacity.jdnd.course3.critter.repository.ScheduleRepository;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleController;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
+import com.udacity.jdnd.course3.critter.service.EmployeeService;
+import com.udacity.jdnd.course3.critter.service.PetService;
+import com.udacity.jdnd.course3.critter.service.ScheduleService;
 import com.udacity.jdnd.course3.critter.user.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +39,26 @@ import java.util.stream.IntStream;
 @Transactional
 @SpringBootTest(classes = CritterApplication.class)
 public class CritterFunctionalTest {
+
+    @Autowired
+    EmployeeService employeeService;
+
+    @Autowired
+    PetService petService;
+
+    @Autowired
+    private ScheduleService scheduleService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @BeforeEach
+    void tearDown() {
+        customerService.deleteAll();
+        petService.deleteAll();
+        employeeService.deleteAll();
+        scheduleService.deleteAll();
+    }
 
     @Autowired
     private UserController userController;

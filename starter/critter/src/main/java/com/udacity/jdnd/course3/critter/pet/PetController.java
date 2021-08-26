@@ -39,7 +39,7 @@ public class PetController {
         return petDto;
     }
 
-    @GetMapping("pets")
+    @GetMapping("pet")
     public List<PetDTO> getPets() {
         List<Pet> pets = petService.getAllPet();
         List<PetDTO> petsDto = new ArrayList<>();

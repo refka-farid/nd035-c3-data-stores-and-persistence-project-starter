@@ -63,8 +63,12 @@ public class PetService {
             } else {
                 return petsByCustomer;
             }
-        }else{
+        } else {
             throw new NoDataFoundForRequest(message);
         }
+    }
+
+    public void deleteAll() {
+        petRepository.deleteAll();
     }
 }

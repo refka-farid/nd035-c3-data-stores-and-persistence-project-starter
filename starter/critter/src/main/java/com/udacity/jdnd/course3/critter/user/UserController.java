@@ -66,7 +66,19 @@ public class UserController {
         return convertEmployeeToEmployeeDto(employeeService.saveEmployee(employee));
     }
 
-    @PostMapping("/employee/{employeeId}")
+    @GetMapping("/employee")
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeService.getAllEmployees();
+        List<EmployeeDTO> employeesDto = new ArrayList<>();
+        if (!employees.isEmpty()) {
+            for (Employee employee : employees) {
+                employeesDto.add(convertEmployeeToEmployeeDto(employee));
+            }
+        }
+        return employeesDto;
+    }
+
+    @GetMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
         Employee employee = employeeService.getEmployeeById(employeeId);
         if (employee != null) {
@@ -77,13 +89,16 @@ public class UserController {
     }
 
     @PutMapping("/employee/{employeeId}")
-    public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
+    public EmployeeDTO setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
         Employee employee = employeeService.getEmployeeById(employeeId);
         if (employee != null) {
             employee.setDaysAvailable(daysAvailable);
         } else {
             throw new EmployeeNotFoundException("Employee with this ID not found");
         }
+        Set<DayOfWeek> daysAvailable1 = employee.getDaysAvailable();
+        employeeService.saveEmployee(employee);
+        return convertEmployeeToEmployeeDto(employee);
     }
 
     @GetMapping("/employee/availability")

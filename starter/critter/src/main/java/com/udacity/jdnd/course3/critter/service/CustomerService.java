@@ -52,4 +52,8 @@ public class CustomerService {
         }
         return customer;
     }
+
+    public void deleteAll() {
+          customerRepository.deleteAll();
+    }
 }

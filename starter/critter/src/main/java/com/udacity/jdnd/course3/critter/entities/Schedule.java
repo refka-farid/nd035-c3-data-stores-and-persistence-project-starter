@@ -16,11 +16,9 @@ public class Schedule {
     @Column( unique = true)
     private long id;
 
-//    @ManyToMany( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @ManyToMany
     private List<Employee> employees;
 
-//    @ManyToMany( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @ManyToMany
     private List<Pet> pets;
 

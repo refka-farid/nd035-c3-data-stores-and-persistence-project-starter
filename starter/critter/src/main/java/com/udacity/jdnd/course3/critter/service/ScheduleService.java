@@ -49,4 +49,8 @@ public class ScheduleService {
         }
         return customerSchedules;
     }
+
+    public void deleteAll() {
+        scheduleRepository.deleteAll();
+    }
 }
